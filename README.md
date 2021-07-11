@@ -14,7 +14,7 @@
 ## 二. 使用
 ### 1. 准备
 - java运行环境
-- MySQL （SQlite数据库会自动创建）
+- MySQL 或 SQLite（SQlite数据库会自动创建,可以不用管）
 - OneBot Mirai (CQHTTP Mirai) 或 go-cqhttp 等 OneBot标准环境
 - 注意:OneBot Mirai 的群临时消息类型不为private,而为group,不符合OneBot标准,所以必须加为好友才能使用除帮助外的命令
 ### 2. 编译配置文件
@@ -22,7 +22,7 @@
 
 application.yml
 ```yml
-debug: true
+debug: false
 server:
   # 签到服务器端口
   port: 4404
@@ -59,10 +59,40 @@ spring:
 app-config:
   # 帮助的回复
   help: |
-    所有功能
+    用户命令:
+       帮助
+       绑定 [*cookie]
+       解绑
+       开启签到 [游戏名] [游戏角色UID]
+       关闭签到 [游戏名] [游戏角色UID]
+       签到 [游戏名] [游戏角色UID]
+       开启通知 [游戏名] [游戏角色UID]
+       关闭通知 [游戏名] [游戏角色UID]
+       所有角色
+       已开启角色
+
+    管理员命令:
+       所有用户角色
+       通知 [通知内容] [QQ号]
+       全部签到
+
+    例如:
+       开启签到 原神 100000000
+       开启指定角色的签到
+
+       开启签到 原神
+       开启指定游戏的所有角色签到
+
+       开启签到 100000000
+       开启指定UID的所有角色签到(如uid重复会都开启)
+
+       开启签到
+       开启所有角色签到
+    注意:
+       带*的为必填参数,不带*的参数可以不写,但不能调换参数的顺序
 
   # OneBot Mirai地址
-  url: http://192.168.1.103:5500
+  url: http://192.168.1.103:4400
   # 管理员的QQ号
   admin-qq-id: 123456789
   # 日志发送到哪个群
@@ -130,7 +160,7 @@ bh3:
   }"
 ```
 
-2.编辑OneBot Mirai 的 sitting.yml 
+2.编辑OneBot Mirai 的 sitting.yml（go-cqhttp等类推）
 
 ```yml
 debug: false
